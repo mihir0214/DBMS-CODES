@@ -1,0 +1,94 @@
+
+-- CREATE TABLES
+
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    city VARCHAR(30)
+);
+
+CREATE TABLE marks (
+    id INT,
+    subject VARCHAR(30),
+    marks INT
+);
+
+-- INSERT DATA
+
+INSERT INTO student VALUES
+(1, 'Rahul', 'Pune'),
+(2, 'Amit', 'Mumbai'),
+(3, 'Priya', 'Delhi'),
+(4, 'Neha', 'Nashik');
+
+INSERT INTO marks VALUES
+(1, 'DBMS', 85),
+(2, 'Java', 90),
+(3, 'Python', 75),
+(5, 'C++', 80);
+
+
+-- 1. INNER JOIN
+
+SELECT student.id, student.name, marks.subject, marks.marks
+FROM student
+INNER JOIN marks
+ON student.id = marks.id;
+
+
+-- 2. LEFT JOIN
+
+SELECT student.id, student.name, marks.subject, marks.marks
+FROM student
+LEFT JOIN marks
+ON student.id = marks.id;
+
+
+-- 3. RIGHT JOIN
+
+SELECT student.id, student.name, marks.subject, marks.marks
+FROM student
+RIGHT JOIN marks
+ON student.id = marks.id;
+
+
+-- 4. CROSS JOIN
+
+SELECT student.name, marks.subject
+FROM student
+CROSS JOIN marks;
+
+
+-- 5. SELF JOIN
+
+CREATE TABLE employee (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(30),
+    manager_id INT
+);
+
+INSERT INTO employee VALUES
+(1, 'Rahul', NULL),
+(2, 'Amit', 1),
+(3, 'Priya', 1),
+(4, 'Neha', 2);
+
+SELECT A.emp_name AS Employee,
+       B.emp_name AS Manager
+FROM employee A
+LEFT JOIN employee B
+ON A.manager_id = B.emp_id;
+
+
+-- 6. NATURAL JOIN
+
+SELECT *
+FROM student
+NATURAL JOIN marks;
+
+
+-- DISPLAY TABLES
+
+SELECT * FROM student;
+SELECT * FROM marks;
+SELECT * FROM employee;

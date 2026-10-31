@@ -1,0 +1,151 @@
+
+-- TCL
+
+-- TABLE CREATION
+CREATE TABLE accounts (
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    balance INT
+) ENGINE=InnoDB;
+
+INSERT INTO accounts VALUES
+(1, 'Rahul', 10000),
+(2, 'Amit', 20000),
+(3, 'Priya', 30000);
+
+
+-- 1. COMMIT
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 15000
+WHERE id = 1;
+
+COMMIT;
+
+
+-- 2. ROLLBACK
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 5000
+WHERE id = 1;
+
+ROLLBACK;
+
+
+-- 3. SAVEPOINT
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 12000
+WHERE id = 1;
+
+SAVEPOINT s1;
+
+UPDATE accounts
+SET balance = 25000
+WHERE id = 2;
+
+COMMIT;
+
+
+-- 4. ROLLBACK TO SAVEPOINT
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 18000
+WHERE id = 1;
+
+SAVEPOINT s2;
+
+UPDATE accounts
+SET balance = 30000
+WHERE id = 2;
+
+ROLLBACK TO SAVEPOINT s2;
+
+COMMIT;
+
+
+-- 5. MULTIPLE SAVEPOINTS
+START TRANSACTION;
+
+UPDATE accounts SET balance = 16000 WHERE id = 1;
+SAVEPOINT s3;
+
+UPDATE accounts SET balance = 26000 WHERE id = 2;
+SAVEPOINT s4;
+
+UPDATE accounts SET balance = 36000 WHERE id = 3;
+
+ROLLBACK TO SAVEPOINT s3;
+
+COMMIT;
+
+
+-- 6. RELEASE SAVEPOINT
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 17000
+WHERE id = 1;
+
+SAVEPOINT s5;
+
+UPDATE accounts
+SET balance = 27000
+WHERE id = 2;
+
+RELEASE SAVEPOINT s5;
+
+COMMIT;
+
+
+-- 7. ROLLBACK ENTIRE TRANSACTION
+START TRANSACTION;
+
+UPDATE accounts SET balance = 5000 WHERE id = 1;
+UPDATE accounts SET balance = 10000 WHERE id = 2;
+
+ROLLBACK;
+
+
+-- 8. SET TRANSACTION READ ONLY
+SET TRANSACTION READ ONLY;
+
+START TRANSACTION;
+
+SELECT * FROM accounts;
+
+COMMIT;
+
+
+-- 9. SET TRANSACTION READ WRITE
+SET TRANSACTION READ WRITE;
+
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = 40000
+WHERE id = 3;
+
+COMMIT;
+
+
+-- 10. BANK MONEY TRANSFER
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 5000
+WHERE id = 1 AND balance >= 5000;
+
+UPDATE accounts
+SET balance = balance + 5000
+WHERE id = 2;
+
+COMMIT;
+
+
+-- DISPLAY FINAL RESULT
+SELECT * FROM accounts;

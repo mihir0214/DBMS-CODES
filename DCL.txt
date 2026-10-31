@@ -1,0 +1,57 @@
+
+-- SELECT DATABASE
+USE CompanyDB;
+
+
+-- 1. CREATE A NEW USER
+CREATE USER 'rahul'@'localhost'
+IDENTIFIED BY 'rahul123';
+
+
+-- 2. GRANT SELECT PERMISSION
+GRANT SELECT ON CompanyDB.EMP
+TO 'rahul'@'localhost';
+
+
+-- 3. GRANT INSERT PERMISSION
+GRANT INSERT ON CompanyDB.EMP
+TO 'rahul'@'localhost';
+
+
+-- 4. GRANT UPDATE PERMISSION
+GRANT UPDATE ON CompanyDB.EMP
+TO 'rahul'@'localhost';
+
+
+-- 5. GRANT DELETE PERMISSION
+GRANT DELETE ON CompanyDB.EMP
+TO 'rahul'@'localhost';
+
+
+-- 6. GRANT ALL PRIVILEGES
+GRANT ALL PRIVILEGES ON CompanyDB.*
+TO 'rahul'@'localhost';
+
+
+-- 7. REVOKE SELECT PERMISSION
+REVOKE SELECT ON CompanyDB.EMP
+FROM 'rahul'@'localhost';
+
+
+-- 8. REVOKE INSERT PERMISSION
+REVOKE INSERT ON CompanyDB.EMP
+FROM 'rahul'@'localhost';
+
+
+-- 9. REVOKE UPDATE PERMISSION
+REVOKE UPDATE ON CompanyDB.EMP
+FROM 'rahul'@'localhost';
+
+
+-- 10. REVOKE ALL PRIVILEGES
+REVOKE ALL PRIVILEGES ON CompanyDB.*
+FROM 'rahul'@'localhost';
+
+
+-- DISPLAY USER PRIVILEGES
+SHOW GRANTS FOR 'rahul'@'localhost';
